@@ -1,11 +1,13 @@
-package com.company;
+package question.number.one;
+
+import question.number.one.VacuumCleaner;
 
 public class Agent {
     public static void main(String[] args) {
         VacuumCleaner vacuumCleaner = new VacuumCleaner();
-        vacuumCleaner.setDirtState(vacuumCleaner.aDirtState);
-        vacuumCleaner.setDirtState(vacuumCleaner.bDirtState);
-        vacuumCleaner.setCurrentLocation(vacuumCleaner.currentLocation);
+        vacuumCleaner.setaDirtState();
+        vacuumCleaner.setbDirtState();
+        vacuumCleaner.setCurrentLocation();
 
         while (!vacuumCleaner.checkHalt()) {
             printStatus(vacuumCleaner);
