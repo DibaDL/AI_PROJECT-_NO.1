@@ -3,58 +3,40 @@ package com.company;
 import java.util.Random;
 
 public class VacuumCleaner {
-    int currentLocation;
-    boolean aDirtState;
-    boolean bDirtState;
+    private int currentLocation;
+    private boolean aDirtState;
+    private boolean bDirtState;
+    private Random rand = new Random();
 
-
-    public void setaDirtState(){
-        Random rand = new Random();
-        int state = rand.nextInt(2);
-        if (state == 0){
-            this.aDirtState = false;
-        }else {
-            this.aDirtState = true;
+    public void setDirtState(boolean dirtState) {
+        if (rand.nextInt(2) == 0) {
+            dirtState = false;
+        } else {
+            dirtState = true;
         }
     }
 
-    public void setbDirtState(){
-        Random rand = new Random();
-        int state = rand.nextInt(2);
-        if (state == 0){
-            this.bDirtState = false;
-        }else {
-            this.bDirtState = true;
+    public void setCurrentLocation(int location) {
+        currentLocation = location;
+    }
+
+    public void moveRight() {
+        currentLocation = 1;
+    }
+
+    public void moveLeft() {
+        currentLocation = 0;
+    }
+
+    public void suck() {
+        if (currentLocation == 0) {
+            aDirtState = false;
+        } else {
+            bDirtState = false;
         }
     }
 
-    public void setCurrentLocation(){
-        Random rand = new Random();
-        int location = rand.nextInt(2);
-        this.currentLocation = location;
-    }
-
-    public void moveRight(){
-        this.currentLocation = 1;
-    }
-
-    public void moveLeft(){
-        this.currentLocation = 0;
-    }
-
-    public void suck(){
-        if (this.currentLocation == 0){
-            this.aDirtState = false;
-        }else {
-            this.bDirtState = false;
-        }
-    }
-
-    public boolean checkHalt(){
-        boolean halt = false;
-        if (!aDirtState && !bDirtState){
-            halt = true;
-        }
-        return halt;
+    public boolean checkHalt() {
+        return !aDirtState && !bDirtState;
     }
 }

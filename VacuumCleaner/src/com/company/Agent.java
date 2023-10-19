@@ -1,59 +1,41 @@
 package com.company;
 
-import java.util.Random;
-
 public class Agent {
     public static void main(String[] args) {
         VacuumCleaner vacuumCleaner = new VacuumCleaner();
-        vacuumCleaner.setaDirtState();
-        vacuumCleaner.setbDirtState();
-        vacuumCleaner.setCurrentLocation();
-        while (!vacuumCleaner.checkHalt()){
-            System.out.println("************************************************");
-            if (vacuumCleaner.currentLocation == 0){
-                System.out.println("Current Location is A");
-            }else {
-                System.out.println("Current Location is B");
-            }
-            System.out.println("A dirt state: " + vacuumCleaner.aDirtState);
-            System.out.println("B dirt state: " + vacuumCleaner.bDirtState);
-            System.out.println("************************************************");
+        vacuumCleaner.setDirtState(vacuumCleaner.aDirtState);
+        vacuumCleaner.setDirtState(vacuumCleaner.bDirtState);
+        vacuumCleaner.setCurrentLocation(vacuumCleaner.currentLocation);
 
-            if (vacuumCleaner.currentLocation == 0){
-                System.out.println("Loc is A");
-                if (vacuumCleaner.aDirtState){
-                    System.out.println("It is dirty");
+        while (!vacuumCleaner.checkHalt()) {
+            printStatus(vacuumCleaner);
 
-                    vacuumCleaner.suck();
-                    vacuumCleaner.moveRight();
-                } else {
-                    System.out.println("It is clean");
-                    vacuumCleaner.moveRight();
-                }
-            }else {
-                System.out.println("Loc is B");
-                if (vacuumCleaner.bDirtState){
-                    System.out.println("It is dirty");
-                    vacuumCleaner.suck();
-                    vacuumCleaner.moveLeft();
-                }else {
-                    System.out.println("It is clean");
-                    vacuumCleaner.moveLeft();
-                }
+            if (vacuumCleaner.currentLocation == 0) {
+                cleanLocation(vacuumCleaner, vacuumCleaner.aDirtState);
+                vacuumCleaner.moveRight();
+            } else {
+                cleanLocation(vacuumCleaner, vacuumCleaner.bDirtState);
+                vacuumCleaner.moveLeft();
             }
 
-            System.out.println("************************************************");
-            if (vacuumCleaner.currentLocation == 0){
-                System.out.println("Current Location is A");
-            }else {
-                System.out.println("Current Location is B");
-            }
-            System.out.println("A dirt state: " + vacuumCleaner.aDirtState);
-            System.out.println("B dirt state: " + vacuumCleaner.bDirtState);
-            System.out.println("************************************************");
+            printStatus(vacuumCleaner);
         }
-
     }
 
+    private static void cleanLocation(VacuumCleaner vacuumCleaner, boolean dirtState) {
+        if (dirtState) {
+            System.out.println("It is dirty");
+            vacuumCleaner.suck();
+        } else {
+            System.out.println("It is clean");
+        }
+    }
 
+    private static void printStatus(VacuumCleaner vacuumCleaner) {
+        System.out.println("************************************************");
+        System.out.println("Current Location is " + (vacuumCleaner.currentLocation == 0 ? "A" : "B"));
+        System.out.println("A dirt state: " + vacuumCleaner.aDirtState);
+        System.out.println("B dirt state: " + vacuumCleaner.bDirtState);
+        System.out.println("************************************************");
+    }
 }
