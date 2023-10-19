@@ -15,7 +15,12 @@ public class AgentNRandom {
         vacuumCleanerNRandom.setCurrentXAxis();
         vacuumCleanerNRandom.setCurrentYAxis();
 
+        int counter = 0;
         while (!vacuumCleanerNRandom.checkHalt()){
+            System.out.println(counter);
+            if (counter % 3 == 2){
+                vacuumCleanerNRandom.setLocationsDirtState();
+            }
             System.out.println("*******************************************************************");
             System.out.println("Current loc : [" + vacuumCleanerNRandom.currentXAxis + "][" + vacuumCleanerNRandom.currentYAxis + "]");
             for (int i = 0; i < vacuumCleanerNRandom.n; i++){
@@ -51,9 +56,19 @@ public class AgentNRandom {
                     actionState = vacuumCleanerNRandom.moveDown();
                 }
             }
-
-            vacuumCleanerNRandom.setLocationsDirtState();
-
+            counter ++;
+            System.out.println("************************************************");
+            for (int i = 0; i < vacuumCleanerNRandom.n; i++){
+                for (int j = 0; j < vacuumCleanerNRandom.n; j++){
+                    if (vacuumCleanerNRandom.locationsDirtState[i][j] == 0){
+                        System.out.print("Clean ");
+                    }else {
+                        System.out.print("Dirty ");
+                    }
+                }
+                System.out.println();
+            }
+            System.out.println("************************************************");
         }
     }
 
