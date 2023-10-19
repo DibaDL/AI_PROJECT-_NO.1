@@ -7,6 +7,8 @@ public class VacuumCleanerN {
     int currentXAxis;
     int currentYAxis;
     int[][] locationsDirtState;
+    int suckCounter;
+    int moveCounter;
 
     public void setN(int n) {
         this.n = n;
@@ -36,8 +38,17 @@ public class VacuumCleanerN {
         this.currentYAxis = y;
     }
 
+    public void setSuckCounter() {
+        this.suckCounter = 0;
+    }
+
+    public void setMoveCounter() {
+        this.moveCounter = 0;
+    }
+
     public void suck(){
         this.locationsDirtState[this.currentXAxis][this.currentYAxis] = 0;
+        this.suckCounter += 1;
     }
 
 
@@ -47,6 +58,7 @@ public class VacuumCleanerN {
             done = false;
         }else {
             this.currentYAxis += 1;
+            this.moveCounter += 1;
         }
         return done;
     }
@@ -57,6 +69,7 @@ public class VacuumCleanerN {
             done = false;
         }else {
             this.currentYAxis -= 1;
+            this.moveCounter += 1;
         }
         return done;
     }
@@ -67,6 +80,7 @@ public class VacuumCleanerN {
             done = false;
         }else {
             this.currentXAxis -= 1;
+            this.moveCounter += 1;
         }
         return done;
     }
@@ -77,6 +91,7 @@ public class VacuumCleanerN {
             done = false;
         }else {
             this.currentXAxis += 1;
+            this.moveCounter += 1;
         }
         return done;
     }

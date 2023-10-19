@@ -6,6 +6,8 @@ public class VacuumCleaner {
      int currentLocation;
      boolean aDirtState;
      boolean bDirtState;
+     int suckCounter;
+     int moveCounter;
      Random rand = new Random();
 
     public void setaDirtState(){
@@ -34,12 +36,22 @@ public class VacuumCleaner {
         this.currentLocation = location;
     }
 
+    public void setSuckCounter() {
+        this.suckCounter = 0;
+    }
+
+    public void setMoveCounter() {
+        this.moveCounter = 0;
+    }
+
     public void moveRight() {
         currentLocation = 1;
+        this.moveCounter += 1;
     }
 
     public void moveLeft() {
         currentLocation = 0;
+        this.moveCounter += 1;
     }
 
     public void suck() {
@@ -48,6 +60,7 @@ public class VacuumCleaner {
         } else {
             bDirtState = false;
         }
+        this.suckCounter += 1;
     }
 
     public boolean checkHalt() {

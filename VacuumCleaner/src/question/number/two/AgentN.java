@@ -11,6 +11,8 @@ public class AgentN {
         vacuumCleanerN.setLocationsDirtState();
         vacuumCleanerN.setCurrentXAxis();
         vacuumCleanerN.setCurrentYAxis();
+        vacuumCleanerN.setSuckCounter();
+        vacuumCleanerN.setMoveCounter();
 
         while (!vacuumCleanerN.checkHalt()){
             System.out.println("*******************************************************************");

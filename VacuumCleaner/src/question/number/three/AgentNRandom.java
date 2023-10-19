@@ -14,6 +14,8 @@ public class AgentNRandom {
         vacuumCleanerNRandom.setLocationsDirtState();
         vacuumCleanerNRandom.setCurrentXAxis();
         vacuumCleanerNRandom.setCurrentYAxis();
+        vacuumCleanerNRandom.setSuckCounter();
+        vacuumCleanerNRandom.setMoveCounter();
 
         int counter = 0;
         while (!vacuumCleanerNRandom.checkHalt()){

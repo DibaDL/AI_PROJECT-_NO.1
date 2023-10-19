@@ -8,6 +8,8 @@ public class Agent {
         vacuumCleaner.setaDirtState();
         vacuumCleaner.setbDirtState();
         vacuumCleaner.setCurrentLocation();
+        vacuumCleaner.setSuckCounter();
+        vacuumCleaner.setMoveCounter();
 
         while (!vacuumCleaner.checkHalt()) {
             printStatus(vacuumCleaner);
