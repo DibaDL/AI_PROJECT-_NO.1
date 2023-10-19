@@ -6,13 +6,14 @@ public class VacuumCleanerN {
 
     int currentXAxis;
     int currentYAxis;
+    int[][] locationsDirtState;
+
     public void setN(int n) {
         this.n = n;
     }
 
-    int[][] locationsDirtState = new int[10][10];
-
     public void setLocationsDirtState() {
+        locationsDirtState = new int[this.n][this.n];
         for (int i = 0; i < this.n; i++){
             for (int j = 0; j < this.n; j++){
                 Random rand = new Random();
