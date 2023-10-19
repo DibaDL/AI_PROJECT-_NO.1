@@ -3,10 +3,10 @@ package com.company;
 import java.util.Random;
 
 public class VacuumCleaner {
-    private int currentLocation;
-    private boolean aDirtState;
-    private boolean bDirtState;
-    private Random rand = new Random();
+     int currentLocation;
+     boolean aDirtState;
+     boolean bDirtState;
+     Random rand = new Random();
 
     public void setDirtState(boolean dirtState) {
         if (rand.nextInt(2) == 0) {
