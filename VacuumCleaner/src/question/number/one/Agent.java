@@ -4,26 +4,34 @@ import question.number.one.VacuumCleaner;
 
 public class Agent {
     public static void main(String[] args) {
-        VacuumCleaner vacuumCleaner = new VacuumCleaner();
-        vacuumCleaner.setaDirtState();
-        vacuumCleaner.setbDirtState();
-        vacuumCleaner.setCurrentLocation();
-        vacuumCleaner.setSuckCounter();
-        vacuumCleaner.setMoveCounter();
+        long performance = 0;
+        for (int k = 0; k < 100; k++){
+            VacuumCleaner vacuumCleaner = new VacuumCleaner();
+            vacuumCleaner.setaDirtState();
+            vacuumCleaner.setbDirtState();
+            vacuumCleaner.setCurrentLocation();
+            vacuumCleaner.setSuckCounter();
+            vacuumCleaner.setMoveCounter();
 
-        while (!vacuumCleaner.checkHalt()) {
-            printStatus(vacuumCleaner);
+            while (!vacuumCleaner.checkHalt()) {
+                printStatus(vacuumCleaner);
 
-            if (vacuumCleaner.currentLocation == 0) {
-                cleanLocation(vacuumCleaner, vacuumCleaner.aDirtState);
-                vacuumCleaner.moveRight();
-            } else {
-                cleanLocation(vacuumCleaner, vacuumCleaner.bDirtState);
-                vacuumCleaner.moveLeft();
+                if (vacuumCleaner.currentLocation == 0) {
+                    cleanLocation(vacuumCleaner, vacuumCleaner.aDirtState);
+                    vacuumCleaner.moveRight();
+                } else {
+                    cleanLocation(vacuumCleaner, vacuumCleaner.bDirtState);
+                    vacuumCleaner.moveLeft();
+                }
+
+                printStatus(vacuumCleaner);
             }
-
-            printStatus(vacuumCleaner);
+            PerformanceMeasure performanceMeasure = new PerformanceMeasure();
+            int p = performanceMeasure.performanceMeasureCalc(vacuumCleaner.suckCounter, vacuumCleaner.moveCounter);
+            performance += p;
+            System.out.println("K is " + k + " and p is " + p + ". More details are : SuckCounter: " + vacuumCleaner.suckCounter + " and MoveCounter : " + vacuumCleaner.moveCounter);
         }
+        System.out.println("Performance :" + performance);
     }
 
     private static void cleanLocation(VacuumCleaner vacuumCleaner, boolean dirtState) {
