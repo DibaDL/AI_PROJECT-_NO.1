@@ -13,54 +13,49 @@ public class AgentNRandom {
             VacuumCleanerNRandom vacuumCleanerNRandom = new VacuumCleanerNRandom();
             vacuumCleanerNRandom.setN(n);
             vacuumCleanerNRandom.initialize();
-
             int counter = 0;
             while (!vacuumCleanerNRandom.checkHalt()) {
-                System.out.println(counter);
+
+                System.out.println("Counter : " + counter);
                 if (counter % 3 == 2) {
                     vacuumCleanerNRandom.setLocationsDirtState();
                 }
+
                 printVacuumStatus(vacuumCleanerNRandom);
 
-                int action = actionController();
-                performAction(vacuumCleanerNRandom, action);
+                if (vacuumCleanerNRandom.getLocationsDirtState()[vacuumCleanerNRandom.getCurrentXAxis()][vacuumCleanerNRandom.getCurrentYAxis()] == 1) {
+                    vacuumCleanerNRandom.suck();
+                }
 
-                counter++;
+                boolean actionState = false;
+                while (!actionState) {
+                    int action = actionController();
+                    System.out.println("In action state loop");
+                    if (action == 0) {
+                        System.out.println("Right");
+                        actionState = vacuumCleanerNRandom.moveRight();
+                    } else if (action == 1) {
+                        System.out.println("Left");
+                        actionState = vacuumCleanerNRandom.moveLeft();
+                    } else if (action == 2) {
+                        System.out.println("Up");
+                        actionState = vacuumCleanerNRandom.moveUp();
+                    } else {
+                        System.out.println("Down");
+                        actionState = vacuumCleanerNRandom.moveDown();
+                    }
+                }
             }
-
             PerformanceMeasure performanceMeasure = new PerformanceMeasure();
             int p = performanceMeasure.performanceMeasureCalc(vacuumCleanerNRandom.getSuckCounter(), vacuumCleanerNRandom.getMoveCounter());
             performance += p;
             System.out.println("K is " + k + " and p is " + p + ". More details are : SuckCounter: " + vacuumCleanerNRandom.getSuckCounter() + " and MoveCounter : " + vacuumCleanerNRandom.getMoveCounter());
         }
-        System.out.println("Performance :" + performance);
-
+        System.out.println("Performance :" + performance / 100);
     }
 
     public static int actionController() {
         return new Random().nextInt(4);
-    }
-
-    public static void performAction(VacuumCleanerNRandom vacuumCleaner, int action) {
-        System.out.println("In action state loop");
-        switch (action) {
-            case 0:
-                System.out.println("Right");
-                vacuumCleaner.moveRight();
-                break;
-            case 1:
-                System.out.println("Left");
-                vacuumCleaner.moveLeft();
-                break;
-            case 2:
-                System.out.println("Up");
-                vacuumCleaner.moveUp();
-                break;
-            case 3:
-                System.out.println("Down");
-                vacuumCleaner.moveDown();
-                break;
-        }
     }
 
     public static void printVacuumStatus(VacuumCleanerNRandom vacuumCleaner) {

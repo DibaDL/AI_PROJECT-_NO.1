@@ -30,14 +30,6 @@ public class VacuumCleanerNRandom {
         this.n = n;
     }
 
-    public int getSuckCounter() {
-        return suckCounter;
-    }
-
-    public int getMoveCounter() {
-        return moveCounter;
-    }
-
     public void initialize() {
         setLocationsDirtState();
         setCurrentXAxis();
@@ -47,21 +39,21 @@ public class VacuumCleanerNRandom {
     }
 
     public void setLocationsDirtState() {
-        locationsDirtState = new int[this.n][this.n];
+        locationsDirtState = new int[n][n];
         Random rand = new Random();
-        for (int i = 0; i < this.n; i++) {
-            for (int j = 0; j < this.n; j++) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
                 locationsDirtState[i][j] = rand.nextInt(2);
             }
         }
     }
 
     public void setCurrentXAxis() {
-        currentXAxis = new Random().nextInt(this.n);
+        currentXAxis = new Random().nextInt(n);
     }
 
     public void setCurrentYAxis() {
-        currentYAxis = new Random().nextInt(this.n);
+        currentYAxis = new Random().nextInt(n);
     }
 
     public void setSuckCounter() {
@@ -72,9 +64,17 @@ public class VacuumCleanerNRandom {
         moveCounter = 0;
     }
 
+    public int getSuckCounter() {
+        return suckCounter;
+    }
+
+    public int getMoveCounter() {
+        return moveCounter;
+    }
+
     public void suck() {
-        this. suckCounter += 1;
-        locationsDirtState[currentXAxis][currentYAxis] = 0;
+        this.locationsDirtState[this.currentXAxis][this.currentYAxis] = 0;
+        this.suckCounter += 1;
     }
 
     public boolean move(int deltaX, int deltaY) {
@@ -108,8 +108,8 @@ public class VacuumCleanerNRandom {
     }
 
     public boolean checkHalt() {
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
+        for (int i = 0; i < this.n; i++) {
+            for (int j = 0; j < this.n; j++) {
                 if (this.locationsDirtState[i][j] == 1) {
                     return false;
                 }

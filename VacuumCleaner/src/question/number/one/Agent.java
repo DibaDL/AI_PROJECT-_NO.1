@@ -31,7 +31,7 @@ public class Agent {
             performance += p;
             System.out.println("K is " + k + " and p is " + p + ". More details are : SuckCounter: " + vacuumCleaner.suckCounter + " and MoveCounter : " + vacuumCleaner.moveCounter);
         }
-        System.out.println("Performance :" + performance);
+        System.out.println("Performance :" + performance / 100);
     }
 
     private static void cleanLocation(VacuumCleaner vacuumCleaner, boolean dirtState) {
