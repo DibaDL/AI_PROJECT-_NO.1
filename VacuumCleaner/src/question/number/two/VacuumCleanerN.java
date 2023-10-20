@@ -1,28 +1,14 @@
-package question.number.five;
+package question.number.two;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
-public class VacuumCleanerNObstacle {
+public class VacuumCleanerN {
     private int n;
     private int currentXAxis;
     private int currentYAxis;
     private int[][] locationsDirtState;
     private int suckCounter;
     private int moveCounter;
-    private Map<Integer, Integer> obstacles;
-
-    public void setObstacles() {
-        obstacles = new HashMap<>();
-        for (int i = 0; i < n / 2; i++) {
-            Random rand = new Random();
-            int x = rand.nextInt(n);
-            int y = rand.nextInt(n);
-            obstacles.put(x, y);
-        }
-        System.out.println("obstacles " + obstacles);
-    }
 
     public int getN() {
         return n;
@@ -95,7 +81,7 @@ public class VacuumCleanerNObstacle {
         int newXAxis = this.currentXAxis + deltaX;
         int newYAxis = this.currentYAxis + deltaY;
 
-        if (newXAxis >= 0 && newXAxis < n && newYAxis >= 0 && newYAxis < n && !existsObstacle(newXAxis, newYAxis)) {
+        if (newXAxis >= 0 && newXAxis < n && newYAxis >= 0 && newYAxis < n) {
             this.currentXAxis = newXAxis;
             this.currentYAxis = newYAxis;
             this.moveCounter += 1;
@@ -103,10 +89,6 @@ public class VacuumCleanerNObstacle {
         }
 
         return false;
-    }
-
-    private boolean existsObstacle(int xAxis, int yAxis) {
-        return obstacles.containsKey(xAxis) && obstacles.get(xAxis) == yAxis;
     }
 
     public boolean moveRight() {
