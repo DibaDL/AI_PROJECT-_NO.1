@@ -2,28 +2,39 @@ package question.number.three;
 
 import java.util.Random;
 import java.util.Scanner;
+import question.number.one.PerformanceMeasure;
 
 public class AgentNRandom {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         int n = input.nextInt();
-        VacuumCleanerNRandom vacuumCleanerNRandom = new VacuumCleanerNRandom();
-        vacuumCleanerNRandom.setN(n);
-        vacuumCleanerNRandom.initialize();
+        long performance = 0;
+        for (int k = 0; k < 100; k++){
+            VacuumCleanerNRandom vacuumCleanerNRandom = new VacuumCleanerNRandom();
+            vacuumCleanerNRandom.setN(n);
+            vacuumCleanerNRandom.initialize();
 
-        int counter = 0;
-        while (!vacuumCleanerNRandom.checkHalt()) {
-            System.out.println(counter);
-            if (counter % 3 == 2) {
-                vacuumCleanerNRandom.setLocationsDirtState();
+            int counter = 0;
+            while (!vacuumCleanerNRandom.checkHalt()) {
+                System.out.println(counter);
+                if (counter % 3 == 2) {
+                    vacuumCleanerNRandom.setLocationsDirtState();
+                }
+                printVacuumStatus(vacuumCleanerNRandom);
+
+                int action = actionController();
+                performAction(vacuumCleanerNRandom, action);
+
+                counter++;
             }
-            printVacuumStatus(vacuumCleanerNRandom);
 
-            int action = actionController();
-            performAction(vacuumCleanerNRandom, action);
-
-            counter++;
+            PerformanceMeasure performanceMeasure = new PerformanceMeasure();
+            int p = performanceMeasure.performanceMeasureCalc(vacuumCleanerNRandom.getSuckCounter(), vacuumCleanerNRandom.getMoveCounter());
+            performance += p;
+            System.out.println("K is " + k + " and p is " + p + ". More details are : SuckCounter: " + vacuumCleanerNRandom.getSuckCounter() + " and MoveCounter : " + vacuumCleanerNRandom.getMoveCounter());
         }
+        System.out.println("Performance :" + performance);
+
     }
 
     public static int actionController() {

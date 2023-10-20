@@ -64,19 +64,27 @@ public class VacuumCleanerN {
         moveCounter = 0;
     }
 
+    public int getSuckCounter() {
+        return suckCounter;
+    }
+
+    public int getMoveCounter() {
+        return moveCounter;
+    }
+
     public void suck() {
-        locationsDirtState[currentXAxis][currentYAxis] = 0;
-        suckCounter++;
+        this.locationsDirtState[this.currentXAxis][this.currentYAxis] = 0;
+        this.suckCounter += 1;
     }
 
     public boolean move(int deltaX, int deltaY) {
-        int newXAxis = currentXAxis + deltaX;
-        int newYAxis = currentYAxis + deltaY;
+        int newXAxis = this.currentXAxis + deltaX;
+        int newYAxis = this.currentYAxis + deltaY;
 
         if (newXAxis >= 0 && newXAxis < n && newYAxis >= 0 && newYAxis < n) {
-            currentXAxis = newXAxis;
-            currentYAxis = newYAxis;
-            moveCounter++;
+            this.currentXAxis = newXAxis;
+            this.currentYAxis = newYAxis;
+            this.moveCounter += 1;
             return true;
         }
 
@@ -100,9 +108,9 @@ public class VacuumCleanerN {
     }
 
     public boolean checkHalt() {
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (locationsDirtState[i][j] == 1) {
+        for (int i = 0; i < this.n; i++) {
+            for (int j = 0; j < this.n; j++) {
+                if (this.locationsDirtState[i][j] == 1) {
                     return false;
                 }
             }

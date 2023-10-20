@@ -2,41 +2,50 @@ package question.number.two;
 
 import java.util.Random;
 import java.util.Scanner;
+import question.number.one.PerformanceMeasure;
 
 public class AgentN {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         int n = input.nextInt();
-        VacuumCleanerN vacuumCleanerN = new VacuumCleanerN();
-        vacuumCleanerN.setN(n);
-        vacuumCleanerN.initialize();
+        long performance = 0;
+        for (int k = 0; k < 100; k++){
+            VacuumCleanerN vacuumCleanerN = new VacuumCleanerN();
+            vacuumCleanerN.setN(n);
+            vacuumCleanerN.initialize();
 
-        while (!vacuumCleanerN.checkHalt()) {
-            printVacuumStatus(vacuumCleanerN);
+            while (!vacuumCleanerN.checkHalt()) {
+                printVacuumStatus(vacuumCleanerN);
 
-            if (vacuumCleanerN.getLocationsDirtState()[vacuumCleanerN.getCurrentXAxis()][vacuumCleanerN.getCurrentYAxis()] == 1) {
-                vacuumCleanerN.suck();
-            }
+                if (vacuumCleanerN.getLocationsDirtState()[vacuumCleanerN.getCurrentXAxis()][vacuumCleanerN.getCurrentYAxis()] == 1) {
+                    vacuumCleanerN.suck();
+                }
 
-            boolean actionState = false;
-            while (!actionState) {
-                int action = actionController();
-                System.out.println("In action state loop");
-                if (action == 0) {
-                    System.out.println("Right");
-                    actionState = vacuumCleanerN.moveRight();
-                } else if (action == 1) {
-                    System.out.println("Left");
-                    actionState = vacuumCleanerN.moveLeft();
-                } else if (action == 2) {
-                    System.out.println("Up");
-                    actionState = vacuumCleanerN.moveUp();
-                } else {
-                    System.out.println("Down");
-                    actionState = vacuumCleanerN.moveDown();
+                boolean actionState = false;
+                while (!actionState) {
+                    int action = actionController();
+                    System.out.println("In action state loop");
+                    if (action == 0) {
+                        System.out.println("Right");
+                        actionState = vacuumCleanerN.moveRight();
+                    } else if (action == 1) {
+                        System.out.println("Left");
+                        actionState = vacuumCleanerN.moveLeft();
+                    } else if (action == 2) {
+                        System.out.println("Up");
+                        actionState = vacuumCleanerN.moveUp();
+                    } else {
+                        System.out.println("Down");
+                        actionState = vacuumCleanerN.moveDown();
+                    }
                 }
             }
+            PerformanceMeasure performanceMeasure = new PerformanceMeasure();
+            int p = performanceMeasure.performanceMeasureCalc(vacuumCleanerN.getSuckCounter(), vacuumCleanerN.getMoveCounter());
+            performance += p;
+            System.out.println("K is " + k + " and p is " + p + ". More details are : SuckCounter: " + vacuumCleanerN.getSuckCounter() + " and MoveCounter : " + vacuumCleanerN.getMoveCounter());
         }
+        System.out.println("Performance :" + performance / 100);
     }
 
     public static int actionController() {
