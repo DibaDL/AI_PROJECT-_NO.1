@@ -1,7 +1,5 @@
 package question.number.three;
 
-import question.number.two.VacuumCleanerN;
-
 import java.util.Random;
 import java.util.Scanner;
 
@@ -11,73 +9,62 @@ public class AgentNRandom {
         int n = input.nextInt();
         VacuumCleanerNRandom vacuumCleanerNRandom = new VacuumCleanerNRandom();
         vacuumCleanerNRandom.setN(n);
-        vacuumCleanerNRandom.setLocationsDirtState();
-        vacuumCleanerNRandom.setCurrentXAxis();
-        vacuumCleanerNRandom.setCurrentYAxis();
-        vacuumCleanerNRandom.setSuckCounter();
-        vacuumCleanerNRandom.setMoveCounter();
+        vacuumCleanerNRandom.initialize();
 
         int counter = 0;
-        while (!vacuumCleanerNRandom.checkHalt()){
+        while (!vacuumCleanerNRandom.checkHalt()) {
             System.out.println(counter);
-            if (counter % 3 == 2){
+            if (counter % 3 == 2) {
                 vacuumCleanerNRandom.setLocationsDirtState();
             }
-            System.out.println("*******************************************************************");
-            System.out.println("Current loc : [" + vacuumCleanerNRandom.currentXAxis + "][" + vacuumCleanerNRandom.currentYAxis + "]");
-            for (int i = 0; i < vacuumCleanerNRandom.n; i++){
-                for (int j = 0; j < vacuumCleanerNRandom.n; j++){
-                    if (vacuumCleanerNRandom.locationsDirtState[i][j] == 0){
-                        System.out.print("Clean ");
-                    }else {
-                        System.out.print("Dirty ");
-                    }
-                }
-                System.out.println();
-            }
-            System.out.println("*******************************************************************");
-            System.out.println("In halt loop");
-            if (vacuumCleanerNRandom.locationsDirtState[vacuumCleanerNRandom.currentXAxis][vacuumCleanerNRandom.currentYAxis] == 1){
-                vacuumCleanerNRandom.suck();
-            }
-            boolean actionState = false;
-            while(!actionState){
-                int action = actionController();
-                System.out.println("In action state loop");
-                if (action == 0){
-                    System.out.println("Right");
-                    actionState = vacuumCleanerNRandom.moveRight();
-                }else if (action == 1){
-                    System.out.println("Left");
-                    actionState = vacuumCleanerNRandom.moveLeft();
-                }else if (action == 2){
-                    System.out.println("Up");
-                    actionState = vacuumCleanerNRandom.moveUp();
-                }else {
-                    System.out.println("Down");
-                    actionState = vacuumCleanerNRandom.moveDown();
-                }
-            }
-            counter ++;
-            System.out.println("************************************************");
-            for (int i = 0; i < vacuumCleanerNRandom.n; i++){
-                for (int j = 0; j < vacuumCleanerNRandom.n; j++){
-                    if (vacuumCleanerNRandom.locationsDirtState[i][j] == 0){
-                        System.out.print("Clean ");
-                    }else {
-                        System.out.print("Dirty ");
-                    }
-                }
-                System.out.println();
-            }
-            System.out.println("************************************************");
+            printVacuumStatus(vacuumCleanerNRandom);
+
+            int action = actionController();
+            performAction(vacuumCleanerNRandom, action);
+
+            counter++;
         }
     }
 
-    public static int actionController(){
-        Random rand = new Random();
-        int action = rand.nextInt(4);
-        return action;
+    public static int actionController() {
+        return new Random().nextInt(4);
     }
 
+    public static void performAction(VacuumCleanerNRandom vacuumCleaner, int action) {
+        System.out.println("In action state loop");
+        switch (action) {
+            case 0:
+                System.out.println("Right");
+                vacuumCleaner.moveRight();
+                break;
+            case 1:
+                System.out.println("Left");
+                vacuumCleaner.moveLeft();
+                break;
+            case 2:
+                System.out.println("Up");
+                vacuumCleaner.moveUp();
+                break;
+            case 3:
+                System.out.println("Down");
+                vacuumCleaner.moveDown();
+                break;
+        }
+    }
+
+    public static void printVacuumStatus(VacuumCleanerNRandom vacuumCleaner) {
+        System.out.println("*******************************************************************");
+        System.out.println("Current loc : [" + vacuumCleaner.getCurrentXAxis() + "][" + vacuumCleaner.getCurrentYAxis() + "]");
+        for (int i = 0; i < vacuumCleaner.getN(); i++) {
+            for (int j = 0; j < vacuumCleaner.getN(); j++) {
+                if (vacuumCleaner.getLocationsDirtState()[i][j] == 0) {
+                    System.out.print("Clean ");
+                } else {
+                    System.out.print("Dirty ");
+                }
+            }
+            System.out.println();
+        }
+        System.out.println("*******************************************************************");
+    }
 }

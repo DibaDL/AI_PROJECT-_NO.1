@@ -1,111 +1,112 @@
 package question.number.two;
+
 import java.util.Random;
 
 public class VacuumCleanerN {
-    int n;
+    private int n;
+    private int currentXAxis;
+    private int currentYAxis;
+    private int[][] locationsDirtState;
+    private int suckCounter;
+    private int moveCounter;
 
-    int currentXAxis;
-    int currentYAxis;
-    int[][] locationsDirtState;
-    int suckCounter;
-    int moveCounter;
+    public int getN() {
+        return n;
+    }
+
+    public int getCurrentXAxis() {
+        return currentXAxis;
+    }
+
+    public int getCurrentYAxis() {
+        return currentYAxis;
+    }
+
+    public int[][] getLocationsDirtState() {
+        return locationsDirtState;
+    }
 
     public void setN(int n) {
         this.n = n;
     }
 
+    public void initialize() {
+        setLocationsDirtState();
+        setCurrentXAxis();
+        setCurrentYAxis();
+        setSuckCounter();
+        setMoveCounter();
+    }
+
     public void setLocationsDirtState() {
-        locationsDirtState = new int[this.n][this.n];
-        for (int i = 0; i < this.n; i++){
-            for (int j = 0; j < this.n; j++){
-                Random rand = new Random();
-                int state = rand.nextInt(2);
-                this.locationsDirtState[i][j] = state;
+        locationsDirtState = new int[n][n];
+        Random rand = new Random();
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                locationsDirtState[i][j] = rand.nextInt(2);
             }
         }
     }
 
-
-    public void setCurrentXAxis(){
-        Random rand = new Random();
-        int x = rand.nextInt(this.n);
-        this.currentXAxis = x;
+    public void setCurrentXAxis() {
+        currentXAxis = new Random().nextInt(n);
     }
 
-    public void setCurrentYAxis(){
-        Random rand = new Random();
-        int y = rand.nextInt(this.n);
-        this.currentYAxis = y;
+    public void setCurrentYAxis() {
+        currentYAxis = new Random().nextInt(n);
     }
 
     public void setSuckCounter() {
-        this.suckCounter = 0;
+        suckCounter = 0;
     }
 
     public void setMoveCounter() {
-        this.moveCounter = 0;
+        moveCounter = 0;
     }
 
-    public void suck(){
-        this.locationsDirtState[this.currentXAxis][this.currentYAxis] = 0;
-        this.suckCounter += 1;
+    public void suck() {
+        locationsDirtState[currentXAxis][currentYAxis] = 0;
+        suckCounter++;
     }
 
+    public boolean move(int deltaX, int deltaY) {
+        int newXAxis = currentXAxis + deltaX;
+        int newYAxis = currentYAxis + deltaY;
 
-    public boolean moveRight(){
-        boolean done = true;
-        if (this.currentYAxis == this.n - 1){
-            done = false;
-        }else {
-            this.currentYAxis += 1;
-            this.moveCounter += 1;
+        if (newXAxis >= 0 && newXAxis < n && newYAxis >= 0 && newYAxis < n) {
+            currentXAxis = newXAxis;
+            currentYAxis = newYAxis;
+            moveCounter++;
+            return true;
         }
-        return done;
+
+        return false;
     }
 
-    public boolean moveLeft(){
-        boolean done = true;
-        if (this.currentYAxis == 0){
-            done = false;
-        }else {
-            this.currentYAxis -= 1;
-            this.moveCounter += 1;
-        }
-        return done;
+    public boolean moveRight() {
+        return move(0, 1);
     }
 
-    public boolean moveUp(){
-        boolean done = true;
-        if (this.currentXAxis == 0){
-            done = false;
-        }else {
-            this.currentXAxis -= 1;
-            this.moveCounter += 1;
-        }
-        return done;
+    public boolean moveLeft() {
+        return move(0, -1);
     }
 
-    public boolean moveDown(){
-        boolean done = true;
-        if (this.currentXAxis == n - 1){
-            done = false;
-        }else {
-            this.currentXAxis += 1;
-            this.moveCounter += 1;
-        }
-        return done;
+    public boolean moveUp() {
+        return move(-1, 0);
     }
 
-    public boolean checkHalt(){
-        boolean halt = true;
-        for (int i = 0; i < this.n; i++){
-            for (int j = 0; j < this.n; j++){
-                if(this.locationsDirtState[i][j] == 1) {
-                    halt = false;
-                    break;
+    public boolean moveDown() {
+        return move(1, 0);
+    }
+
+    public boolean checkHalt() {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (locationsDirtState[i][j] == 1) {
+                    return false;
                 }
             }
         }
-        return halt;
+        return true;
     }
 }
