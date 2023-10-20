@@ -1,4 +1,4 @@
-package question.number.seven;
+package question.number.nine;
 
 import java.util.Random;
 
