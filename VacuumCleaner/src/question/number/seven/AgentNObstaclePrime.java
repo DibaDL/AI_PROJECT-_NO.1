@@ -26,7 +26,6 @@ public class AgentNObstaclePrime {
                 boolean actionState = false;
                 while (!actionState) {
                     int action = actionController();
-                    System.out.println("In action state loop");
                     if (action == 0) {
                         System.out.println("Right");
                         actionState = vacuumCleanerNObstaclePrime.moveRight();
@@ -47,7 +46,6 @@ public class AgentNObstaclePrime {
             PerformanceMeasure performanceMeasure = new PerformanceMeasure();
             int p = performanceMeasure.performanceMeasureCalc(vacuumCleanerNObstaclePrime.getSuckCounter(), vacuumCleanerNObstaclePrime.getMoveCounter());
             performance += p;
-            System.out.println("K is " + k + " and p is " + p + ". More details are : SuckCounter: " + vacuumCleanerNObstaclePrime.getSuckCounter() + " and MoveCounter : " + vacuumCleanerNObstaclePrime.getMoveCounter());
         }
         System.out.println("Performance :" + performance / 100);
     }
