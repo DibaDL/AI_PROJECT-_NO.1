@@ -1,10 +1,31 @@
-package question.number.five;
+package question.number.six;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-public class VacuumCleanerNObstacle {
+/**
+ * In the context of the above code for a vacuum cleaner simulation,
+ * a "model" refers to a simplified representation of a vacuum cleaner and its environment,
+ * which includes the following components:
+ * <p>
+ * n: An integer representing the size of the square grid (N*N) in which the vacuum cleaner operates.
+ * <p>
+ * matrix: A 2D integer array that represents the grid,
+ * with each cell containing a value (0true or false, in this case, to indicate clean or dirty).
+ * <p>
+ * position: An array of two integers representing the current position of the vacuum cleaner
+ * in the grid, with the first element indicating the row and the second element indicating the column.
+ * <p>
+ * The VacuumCleaner class provides methods to manipulate this model,
+ * allowing the vacuum cleaner to move left, right, up, and down within the grid, clean the cell it's positioned on,
+ * and display the state of the grid and also have some obstacles od its grid.
+ * <p>
+ * The model-based approach here simplifies the vacuum cleaner's behavior within the grid and can serve as
+ * a foundation for more advanced features, such as obstacle detection, path planning, and more realistic
+ * simulations of a robotic vacuum cleaner.
+ */
+public class VacuumCleanerModelBased {
     private int n;
     private int currentXAxis;
     private int currentYAxis;
@@ -137,3 +158,4 @@ public class VacuumCleanerNObstacle {
         return true;
     }
 }
+

@@ -1,26 +1,26 @@
-package question.number.five;
+package question.number.six;
 
 import question.number.one.PerformanceMeasure;
 
 import java.util.Random;
 import java.util.Scanner;
 
-public class AgentNObstacle {
+public class AgentModelBased {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         int n = input.nextInt();
         long performance = 0;
         for (int k = 0; k < 100; k++) {
-            VacuumCleanerNObstacle vacuumCleanerNObstacle = new VacuumCleanerNObstacle();
-            vacuumCleanerNObstacle.setN(n);
-            vacuumCleanerNObstacle.initialize();
-            vacuumCleanerNObstacle.setObstacles();
+            VacuumCleanerModelBased vacuumCleanerModelBased = new VacuumCleanerModelBased();
+            vacuumCleanerModelBased.setN(n);
+            vacuumCleanerModelBased.initialize();
+            vacuumCleanerModelBased.setObstacles();
 
-            while (!vacuumCleanerNObstacle.checkHalt()) {
-                printVacuumStatus(vacuumCleanerNObstacle);
+            while (!vacuumCleanerModelBased.checkHalt()) {
+                printVacuumStatus(vacuumCleanerModelBased);
 
-                if (vacuumCleanerNObstacle.getLocationsDirtState()[vacuumCleanerNObstacle.getCurrentXAxis()][vacuumCleanerNObstacle.getCurrentYAxis()] == 1) {
-                    vacuumCleanerNObstacle.suck();
+                if (vacuumCleanerModelBased.getLocationsDirtState()[vacuumCleanerModelBased.getCurrentXAxis()][vacuumCleanerModelBased.getCurrentYAxis()] == 1) {
+                    vacuumCleanerModelBased.suck();
                 }
 
                 boolean actionState = false;
@@ -28,23 +28,23 @@ public class AgentNObstacle {
                     int action = actionController();
                     if (action == 0) {
                         System.out.println("Right");
-                        actionState = vacuumCleanerNObstacle.moveRight();
+                        actionState = vacuumCleanerModelBased.moveRight();
                     } else if (action == 1) {
                         System.out.println("Left");
-                        actionState = vacuumCleanerNObstacle.moveLeft();
+                        actionState = vacuumCleanerModelBased.moveLeft();
                     } else if (action == 2) {
                         System.out.println("Up");
-                        actionState = vacuumCleanerNObstacle.moveUp();
+                        actionState = vacuumCleanerModelBased.moveUp();
                     } else {
                         System.out.println("Down");
-                        actionState = vacuumCleanerNObstacle.moveDown();
+                        actionState = vacuumCleanerModelBased.moveDown();
                     }
                 }
             }
 
 
             PerformanceMeasure performanceMeasure = new PerformanceMeasure();
-            int p = performanceMeasure.performanceMeasureCalc(vacuumCleanerNObstacle.getSuckCounter(), vacuumCleanerNObstacle.getMoveCounter());
+            int p = performanceMeasure.performanceMeasureCalc(vacuumCleanerModelBased.getSuckCounter(), vacuumCleanerModelBased.getMoveCounter());
             performance += p;
         }
         System.out.println("Performance :" + performance / 100);
@@ -54,12 +54,12 @@ public class AgentNObstacle {
         return new Random().nextInt(4);
     }
 
-    public static void printVacuumStatus(VacuumCleanerNObstacle vacuumCleanerNObstacle) {
+    public static void printVacuumStatus(VacuumCleanerModelBased vacuumCleanerModelBased) {
         System.out.println("*******************************************************************");
-        System.out.println("Current loc : [" + vacuumCleanerNObstacle.getCurrentXAxis() + "][" + vacuumCleanerNObstacle.getCurrentYAxis() + "]");
-        for (int i = 0; i < vacuumCleanerNObstacle.getN(); i++) {
-            for (int j = 0; j < vacuumCleanerNObstacle.getN(); j++) {
-                if (vacuumCleanerNObstacle.getLocationsDirtState()[i][j] == 0) {
+        System.out.println("Current loc : [" + vacuumCleanerModelBased.getCurrentXAxis() + "][" + vacuumCleanerModelBased.getCurrentYAxis() + "]");
+        for (int i = 0; i < vacuumCleanerModelBased.getN(); i++) {
+            for (int j = 0; j < vacuumCleanerModelBased.getN(); j++) {
+                if (vacuumCleanerModelBased.getLocationsDirtState()[i][j] == 0) {
                     System.out.print("Clean ");
                 } else {
                     System.out.print("Dirty ");
@@ -70,3 +70,4 @@ public class AgentNObstacle {
         System.out.println("*******************************************************************");
     }
 }
+

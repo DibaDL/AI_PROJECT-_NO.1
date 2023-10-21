@@ -1,10 +1,10 @@
-package question.number.five;
+package question.number.seven;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-public class VacuumCleanerNObstacle {
+public class VacuumCleanerNObstaclePrime {
     private int n;
     private int currentXAxis;
     private int currentYAxis;
@@ -99,8 +99,6 @@ public class VacuumCleanerNObstacle {
             this.currentYAxis = newYAxis;
             this.moveCounter += 1;
             return true;
-        } else if (existsObstacle(newXAxis, newYAxis)) {
-            this.moveCounter += 1;
         }
 
         return false;
@@ -137,3 +135,4 @@ public class VacuumCleanerNObstacle {
         return true;
     }
 }
+

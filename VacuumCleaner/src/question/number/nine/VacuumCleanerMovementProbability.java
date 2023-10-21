@@ -1,27 +1,14 @@
-package question.number.five;
+package question.number.nine;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
-public class VacuumCleanerNObstacle {
+public class VacuumCleanerMovementProbability {
     private int n;
     private int currentXAxis;
     private int currentYAxis;
     private int[][] locationsDirtState;
     private int suckCounter;
     private int moveCounter;
-    private Map<Integer, Integer> obstacles;
-
-    public void setObstacles() {
-        obstacles = new HashMap<>();
-        for (int i = 0; i < n / 2; i++) {
-            Random rand = new Random();
-            int x = rand.nextInt(n);
-            int y = rand.nextInt(n);
-            obstacles.put(x, y);
-        }
-    }
 
     public int getN() {
         return n;
@@ -94,20 +81,18 @@ public class VacuumCleanerNObstacle {
         int newXAxis = this.currentXAxis + deltaX;
         int newYAxis = this.currentYAxis + deltaY;
 
-        if (newXAxis >= 0 && newXAxis < n && newYAxis >= 0 && newYAxis < n && !existsObstacle(newXAxis, newYAxis)) {
-            this.currentXAxis = newXAxis;
-            this.currentYAxis = newYAxis;
-            this.moveCounter += 1;
+        if (newXAxis >= 0 && newXAxis < n && newYAxis >= 0 && newYAxis < n) {
+            int movementController = moveController();
+            System.out.println("Movement controller : " + movementController);
+            if (movementController != 0){
+                this.currentXAxis = newXAxis;
+                this.currentYAxis = newYAxis;
+                this.moveCounter += 1;
+            }
             return true;
-        } else if (existsObstacle(newXAxis, newYAxis)) {
-            this.moveCounter += 1;
         }
 
         return false;
-    }
-
-    private boolean existsObstacle(int xAxis, int yAxis) {
-        return obstacles.containsKey(xAxis) && obstacles.get(xAxis) == yAxis;
     }
 
     public boolean moveRight() {
@@ -135,5 +120,9 @@ public class VacuumCleanerNObstacle {
             }
         }
         return true;
+    }
+
+    public int moveController(){
+        return new Random().nextInt(5);
     }
 }

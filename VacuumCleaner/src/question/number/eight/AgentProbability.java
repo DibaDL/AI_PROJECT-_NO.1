@@ -1,24 +1,39 @@
-package question.number.two;
+package question.number.eight;
 
 import java.util.Random;
 import java.util.Scanner;
 import question.number.one.PerformanceMeasure;
 
-public class AgentN {
+public class AgentProbability {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         int n = input.nextInt();
         long performance = 0;
         for (int k = 0; k < 100; k++){
-            VacuumCleanerN vacuumCleanerN = new VacuumCleanerN();
+            VacuumCleanerProbability vacuumCleanerN = new VacuumCleanerProbability();
             vacuumCleanerN.setN(n);
             vacuumCleanerN.initialize();
 
             while (!vacuumCleanerN.checkHalt()) {
                 printVacuumStatus(vacuumCleanerN);
-
-                if (vacuumCleanerN.getLocationsDirtState()[vacuumCleanerN.getCurrentXAxis()][vacuumCleanerN.getCurrentYAxis()] == 1) {
-                    vacuumCleanerN.suck();
+                boolean isItDirty = false;
+                if (vacuumCleanerN.getLocationsDirtState()[vacuumCleanerN.getCurrentXAxis()][vacuumCleanerN.getCurrentYAxis()] == 1){
+                    isItDirty = true;
+                }
+                int sensorProb = sensorController();
+                if (sensorProb == 0){
+                    isItDirty = !isItDirty;
+                }
+                if (isItDirty) {
+                    int prob = actionController();
+                    if (prob!= 0){
+                        vacuumCleanerN.suck();
+                    }
+                }else {
+                    int prob = actionController();
+                    if (prob == 0){
+                        vacuumCleanerN.makeDirt();
+                    }
                 }
 
                 boolean actionState = false;
@@ -50,7 +65,9 @@ public class AgentN {
         return new Random().nextInt(4);
     }
 
-    public static void printVacuumStatus(VacuumCleanerN vacuumCleaner) {
+    public static int sensorController(){ return new Random().nextInt(10);}
+
+    public static void printVacuumStatus(VacuumCleanerProbability vacuumCleaner) {
         System.out.println("*******************************************************************");
         System.out.println("Current loc : [" + vacuumCleaner.getCurrentXAxis() + "][" + vacuumCleaner.getCurrentYAxis() + "]");
         for (int i = 0; i < vacuumCleaner.getN(); i++) {

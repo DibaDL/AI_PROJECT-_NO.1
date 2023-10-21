@@ -1,16 +1,16 @@
-package question.number.two;
+package question.number.nine;
 
 import java.util.Random;
 import java.util.Scanner;
 import question.number.one.PerformanceMeasure;
 
-public class AgentN {
+public class AgentMovementProbability {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         int n = input.nextInt();
         long performance = 0;
         for (int k = 0; k < 100; k++){
-            VacuumCleanerN vacuumCleanerN = new VacuumCleanerN();
+            VacuumCleanerMovementProbability vacuumCleanerN = new VacuumCleanerMovementProbability();
             vacuumCleanerN.setN(n);
             vacuumCleanerN.initialize();
 
@@ -50,7 +50,7 @@ public class AgentN {
         return new Random().nextInt(4);
     }
 
-    public static void printVacuumStatus(VacuumCleanerN vacuumCleaner) {
+    public static void printVacuumStatus(VacuumCleanerMovementProbability vacuumCleaner) {
         System.out.println("*******************************************************************");
         System.out.println("Current loc : [" + vacuumCleaner.getCurrentXAxis() + "][" + vacuumCleaner.getCurrentYAxis() + "]");
         for (int i = 0; i < vacuumCleaner.getN(); i++) {

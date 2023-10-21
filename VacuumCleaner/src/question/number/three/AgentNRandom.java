@@ -13,12 +13,12 @@ public class AgentNRandom {
             VacuumCleanerNRandom vacuumCleanerNRandom = new VacuumCleanerNRandom();
             vacuumCleanerNRandom.setN(n);
             vacuumCleanerNRandom.initialize();
-            int counter = 0;
+           // int counter = 0;
             while (!vacuumCleanerNRandom.checkHalt()) {
 
-                System.out.println("Counter : " + counter);
-                if (counter % 3 == 2) {
-                    vacuumCleanerNRandom.setLocationsDirtState();
+                int randomDirtMaking = randomDirtMakeController();
+                if (randomDirtMaking == 0){
+                    makeDirt(vacuumCleanerNRandom);
                 }
 
                 printVacuumStatus(vacuumCleanerNRandom);
@@ -30,7 +30,6 @@ public class AgentNRandom {
                 boolean actionState = false;
                 while (!actionState) {
                     int action = actionController();
-                    System.out.println("In action state loop");
                     if (action == 0) {
                         System.out.println("Right");
                         actionState = vacuumCleanerNRandom.moveRight();
@@ -49,7 +48,6 @@ public class AgentNRandom {
             PerformanceMeasure performanceMeasure = new PerformanceMeasure();
             int p = performanceMeasure.performanceMeasureCalc(vacuumCleanerNRandom.getSuckCounter(), vacuumCleanerNRandom.getMoveCounter());
             performance += p;
-            System.out.println("K is " + k + " and p is " + p + ". More details are : SuckCounter: " + vacuumCleanerNRandom.getSuckCounter() + " and MoveCounter : " + vacuumCleanerNRandom.getMoveCounter());
         }
         System.out.println("Performance :" + performance / 100);
     }
@@ -57,6 +55,8 @@ public class AgentNRandom {
     public static int actionController() {
         return new Random().nextInt(4);
     }
+
+    public static int randomDirtMakeController(){ return new Random().nextInt(5);}
 
     public static void printVacuumStatus(VacuumCleanerNRandom vacuumCleaner) {
         System.out.println("*******************************************************************");
@@ -72,5 +72,18 @@ public class AgentNRandom {
             System.out.println();
         }
         System.out.println("*******************************************************************");
+    }
+
+    public static void makeDirt(VacuumCleanerNRandom vacuumCleanerNRandom){
+        int rand = new Random().nextInt(vacuumCleanerNRandom.getN());
+        System.out.println("Rand is : " + rand + ". For loop over 0 to " + rand);
+        for (int l = 0; l <= rand; l++){
+            int i = new Random().nextInt(vacuumCleanerNRandom.getN());
+            int j = new Random().nextInt(vacuumCleanerNRandom.getN());
+            if (vacuumCleanerNRandom.getLocationsDirtState()[i][j] == 0){
+                vacuumCleanerNRandom.getLocationsDirtState()[i][j] = 1;
+                System.out.println("Room : (" + i + ", " + j + ") got dirty:(");
+            }
+        }
     }
 }
