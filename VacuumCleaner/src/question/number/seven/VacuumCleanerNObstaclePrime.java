@@ -21,7 +21,6 @@ public class VacuumCleanerNObstaclePrime {
             int y = rand.nextInt(n);
             obstacles.put(x, y);
         }
-        System.out.println("obstacles " + obstacles);
     }
 
     public int getN() {

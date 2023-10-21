@@ -29,7 +29,6 @@ public class Agent {
             PerformanceMeasure performanceMeasure = new PerformanceMeasure();
             int p = performanceMeasure.performanceMeasureCalc(vacuumCleaner.suckCounter, vacuumCleaner.moveCounter);
             performance += p;
-            System.out.println("K is " + k + " and p is " + p + ". More details are : SuckCounter: " + vacuumCleaner.suckCounter + " and MoveCounter : " + vacuumCleaner.moveCounter);
         }
         System.out.println("Performance :" + performance / 100);
     }

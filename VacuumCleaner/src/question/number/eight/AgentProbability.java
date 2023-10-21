@@ -39,7 +39,6 @@ public class AgentProbability {
                 boolean actionState = false;
                 while (!actionState) {
                     int action = actionController();
-                    System.out.println("In action state loop");
                     if (action == 0) {
                         System.out.println("Right");
                         actionState = vacuumCleanerN.moveRight();
@@ -58,7 +57,6 @@ public class AgentProbability {
             PerformanceMeasure performanceMeasure = new PerformanceMeasure();
             int p = performanceMeasure.performanceMeasureCalc(vacuumCleanerN.getSuckCounter(), vacuumCleanerN.getMoveCounter());
             performance += p;
-            System.out.println("K is " + k + " and p is " + p + ". More details are : SuckCounter: " + vacuumCleanerN.getSuckCounter() + " and MoveCounter : " + vacuumCleanerN.getMoveCounter());
         }
         System.out.println("Performance :" + performance / 100);
     }
